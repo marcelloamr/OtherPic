@@ -1,20 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { PhotoService } from './photos/photo/photo.service';
+
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+
   title = 'OtherPic';
-  photos =[
-    {
-      url:"https://www.petz.com.br/blog/wp-content/uploads/2022/01/curiosidades-sobre-leao.jpg",
-      description:"Leão selvagem"
-    },
-    {
-      url:"https://www.petz.com.br/blog/wp-content/uploads/2022/01/curiosidades-sobre-leao2-1280x720.jpg",
-      description:"Leão com fundo preto"
-    }
-  ]
+
+  photos: any[] = []
+
+  constructor(private photoService: PhotoService) {
+
+  }
+
+  ngOnInit(): void {
+
+    this.photoService.listFromUser('flavio').subscribe(photos => this.photos = photos);
+
+  }
 }
